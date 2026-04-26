@@ -3,30 +3,15 @@
 package main
 
 import (
-	"errors"
+	"bufio"
 	"fmt"
+	"os"
 	"os/exec"
-
-	"github.com/gin-gonic/gin"
+	"strings"
 )
 
-func server() {
-	r := gin.Default() // for routes
 
-	// routes
-	r.GET("/version", func(c* gin.Context) {
-		c.JSON(200, gin.H{
-			"version": "0.0.1 BETA",
-			"author": "Astro",
-		})
-	})
-}
-
-func run() {
-	err := errors.New("An Error Has Ocurred.")
-	if err != nil {
-		return
-	}
+func main() {
 
 	prefix := string("min://")
 	port := string(":8080")
@@ -39,12 +24,33 @@ func run() {
 	fmt.Println("Alert: Min can have some issues because, Min has started TOO EARLY, bye~")
 	fmt.Println("------------------------------------------------------------------------")
 
-	cmd := exec.Command("Min.exe")
+	LaunchProgram()
 
-	if err := cmd.Start(); err != nil {
-		fmt.Println("Cannot Open Min.exe!")
+}
+
+func LaunchProgram() {
+
+	fmt.Print("Paste your executable file here:")
+
+	reader := bufio.NewReader(os.Stdin)
+
+	input, _ := reader.ReadString('\n')
+
+	appPath := strings.TrimSpace(input)
+	appPath = strings.ReplaceAll(appPath, "\"", "")
+
+	if appPath == "" {
+		fmt.Println("Error: executable file is null.")
 		return
 	}
 
-	cmd.Wait() // close min
+	cmd := exec.Command(appPath)
+
+	fmt.Printf("Opening App: %s, \n", appPath)
+
+	err := cmd.Run() 
+
+	if err != nil {
+		fmt.Printf("Cannot Open: %v\n", err)
+	}
 }
