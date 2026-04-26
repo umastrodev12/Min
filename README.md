@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="carbon.png" alt="Image">
+</div>
+
 # Min
 💫 An Simple Launcher written in go~
 
