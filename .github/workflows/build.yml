@@ -22,7 +22,7 @@ jobs:
 
     - name: Build Windows EXE
       run: |
-        GOOS=windows GOARCH=amd64 go build -v -o Min.exe .
+        GOOS=windows GOARCH=amd64 go build -v -o Min.exe ./min.core
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
