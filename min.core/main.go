@@ -8,11 +8,14 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	
+	"min/min.core/updater"
 )
 
 
 func main() {
-
+	updater.WriteUpdateJson()
+	
 	prefix := string("min://")
 	port := string(":8080")
 
