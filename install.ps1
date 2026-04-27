@@ -1,6 +1,7 @@
 $installDir = Join-Path $HOME ".min\bin"
 $exeName = "min.exe"
-$sourceExe = Join-Path $PSScriptRoot $exeName
+$exePath = Join-Path $installDir $exeName
+$url = "https://github.com/umastrodev12/Min/releases/latest/download/min.exe"
 
 Write-Host "Starting Min CLI installation..."
 
@@ -8,12 +9,12 @@ if (-not (Test-Path $installDir)) {
     New-Item -ItemType Directory -Force -Path $installDir | Out-Null
 }
 
-if (Test-Path $sourceExe) {
-    Copy-Item -Path $sourceExe -Destination (Join-Path $installDir $exeName) -Force
-    Write-Host "[OK] Executable copied."
-} else {
-    Write-Host "[ERROR] min.exe not found! Build the project first."
-    Pause
+Write-Host "Downloading min.exe..."
+try {
+    Invoke-WebRequest -Uri $url -OutFile $exePath -ErrorAction Stop
+    Write-Host "[OK] Executable downloaded."
+} catch {
+    Write-Host "[ERROR] Failed to download min.exe. Make sure you have a Release with the file attached."
     exit
 }
 
@@ -22,11 +23,7 @@ if ($userPath -notmatch [regex]::Escape($installDir)) {
     $newPath = "$userPath;$installDir"
     [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
     Write-Host "[OK] PATH variable updated!"
-} else {
-    Write-Host "[OK] Min is already in your PATH."
 }
 
 Write-Host "Installation completed successfully!"
-Write-Host "Close this terminal, open a new one and type: min version"
-Write-Host "Press any key to exit..."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+Write-Host "Restart your terminal and type: min help"
