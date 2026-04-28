@@ -13,6 +13,10 @@ I'm creating this because, i wanted to create a simple launcher, based on **Mine
 ## Plugins
 All Plugins are avaiable in [min.core/plugins](https://github.com/umastrodev12/Min/tree/main/min.core/plugins)
 
-## Desktop Version
+## Installation
 
-Min can run in Terminal, but also, Min has a Desktop Version called "Min Launcher Manager", you can see some things of Min and a bunch of other things.
+Use this command in your powershell(only windows):
+
+```powershell
+powershell -c "irm github.com/umastrodev12/Min/releases/downloads/beta/install.ps1 | iex"
+```
