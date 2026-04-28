@@ -20,3 +20,5 @@ Use this command in your powershell(only windows):
 ```powershell
 powershell -c "irm github.com/umastrodev12/Min/releases/downloads/beta/install.ps1 | iex"
 ```
+
+Ou [Clique Aqui para baixar o .exe](https://bit.ly/4ufqi2N)
